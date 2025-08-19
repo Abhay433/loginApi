@@ -43,6 +43,7 @@ var (
 // declared after it to never be called.
 func App() *buffalo.App {
 	appOnce.Do(func() {
+
 		app = buffalo.New(buffalo.Options{
 			Env:          ENV,
 			SessionStore: sessions.Null{},
@@ -66,6 +67,8 @@ func App() *buffalo.App {
 		// Remove to disable this.
 		app.Use(popmw.Transaction(models.DB))
 		app.GET("/", HomeHandler)
+		app.POST("/users", UsersCreate) // for registration
+		app.POST("/login", UsersLogin)  // for login
 	})
 
 	return app
