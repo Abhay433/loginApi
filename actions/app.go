@@ -67,8 +67,13 @@ func App() *buffalo.App {
 		// Remove to disable this.
 		app.Use(popmw.Transaction(models.DB))
 		app.GET("/", HomeHandler)
-		app.POST("/users", UsersCreate) // for registration
-		app.POST("/login", UsersLogin)  // for login
+		app.POST("/users", UsersCreate)         // for registration
+		app.POST("/login", UsersLogin)          // for login
+		app.GET("/api/users/{id}", getUserById) //get user by Id
+		app.PUT("/users/{id}", UpdateUser)      //for update
+		app.DELETE("/users/{id}", DeleteUser)   //delete by Id
+		app.GET("/api/users", getAllUser)       // get all users
+
 	})
 
 	return app
